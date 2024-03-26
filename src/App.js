@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+let style = {
+  test: {
+    marginTop: "15px"
+  }
+}
 function Square( {value, onSquareClick}) {
   return <button onClick={onSquareClick} className="square">{value}</button>
 }
@@ -22,6 +27,17 @@ export default function Board() {
     }
     console.log(nextSquares)
   }
+  
+  function reset() {
+    let resetSquares = squares.slice()
+    let freshReset = []
+    for (let i = 0; i < squares.length; i++) {
+      resetSquares[i] = null
+      freshReset.push(resetSquares[i])
+    }
+    setSquares(freshReset)
+    console.log(freshReset)
+  }
 
   return (
   <>
@@ -40,6 +56,7 @@ export default function Board() {
       <Square value={squares[7]} onSquareClick={() => handleClick(7)}/>
       <Square value={squares[8]} onSquareClick={() => handleClick(8)}/>
     </div>
+    <button style={style.test} onClick={() => reset(squares, setSquares) }>Reset</button>
   </>
   );
 }
