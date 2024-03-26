@@ -1,18 +1,27 @@
 import { useState } from "react";
 
+//Style for reset button
 let style = {
   test: {
     marginTop: "15px"
   }
 }
+
+//Creating each square in the board grid
+//onSquareClick sends out X or O depending on previous click value
 function Square( {value, onSquareClick}) {
   return <button onClick={onSquareClick} className="square">{value}</button>
 }
 
+//Main React Component for TicTacToe
 export default function Board() {
+//Squares is an array keeping track of each squares value. Index is null unless a square is clicked
   const [squares, setSquares] = useState(Array(9).fill(null));
+//TestO is for changing X to O and vice versa so the game can be played by 2 players.
   const [testO, setO] = useState(null)
 
+  //Click function for each square click
+  //Sets value to either X or O depending on the last clicked value
   function handleClick(i) {
     const nextSquares = squares.slice();
     if ( testO === null || "O" && squares[i] === null) {
@@ -28,6 +37,10 @@ export default function Board() {
     console.log(nextSquares)
   }
   
+  //Used for when the reset button is clicked
+  //Takes an instance of the squares array that is a soft copy using the slice() method
+  //Empty array to push all values of Squares array back to null 
+  //Uses setSquares state to then reset all values after values are all null
   function reset() {
     let resetSquares = squares.slice()
     let freshReset = []
@@ -39,6 +52,8 @@ export default function Board() {
     console.log(freshReset)
   }
 
+  //Component HTML for returning react component.
+  //Value prop is either X, O, or Null
   return (
   <>
     <div className="board-row">
